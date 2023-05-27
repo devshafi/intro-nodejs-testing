@@ -2,7 +2,7 @@ const app = require("../app");
 const request = require("supertest");
 
 describe("Pet Service", () => {
-    describe("Normal scenario", () => {
+    describe("when a valid object is posted", () => {
         it("should response with 201 when new pet created with all the fields", async () => {
             const response = await request(app).post("/api/pet").send({
                 id: 5,
@@ -24,7 +24,7 @@ describe("Pet Service", () => {
         });
     });
 
-    describe("Negative scenario", () => {
+    describe("when name and type is missing", () => {
         it("should response with 400 when name or type is missing for the pet", async () => {
             const bodyData = [
                 {
