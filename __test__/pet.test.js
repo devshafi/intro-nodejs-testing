@@ -25,7 +25,7 @@ describe("Pet Service", () => {
     });
 
     describe("Negative scenario", () => {
-        it("should response with 400 when name ro type is missing", async () => {
+        it("should response with 400 when name or type is missing for the pet", async () => {
             const bodyData = [
                 {
                     id: 5,
