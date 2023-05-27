@@ -6,8 +6,4 @@ app.use(express.json());
 
 app.use("/api", routes);
 
-app.listen("8080", () => {
-    console.log("Server is up and running");
-});
-
 module.exports = app;

@@ -4,8 +4,8 @@
   "description": "An introduction of testing nodejs API using jest and supertest",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "jest"
+    "start": "nodemon server.js",
+    "test": "jest --watch"
   },
   "keywords": [
     "nodejs",
