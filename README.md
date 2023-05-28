@@ -1,4 +1,4 @@
-# 🧪🧪 The intention of the project is to make it easy to get **introduced** with **unit testing** and **API testing** using javascript and nodejs 🧪🧪
+# 🧪🧪  **Intro** to **unit testing** and **API testing** using javascript and nodejs 🧪🧪
 
 ## Why testing
 
