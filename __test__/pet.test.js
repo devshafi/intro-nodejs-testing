@@ -1,7 +1,7 @@
 const app = require("../app");
 const request = require("supertest");
 
-describe("Pet Service", () => {
+describe("Pet Post Service", () => {
     describe("when a valid object is posted", () => {
         it("should response with 201 when new pet created with all the fields", async () => {
             const response = await request(app).post("/api/pet").send({
@@ -44,6 +44,21 @@ describe("Pet Service", () => {
                 const response = await request(app).post("/api/pet").send(data);
                 expect(response.statusCode).toBe(400);
             }
+        });
+    });
+});
+
+describe("Pet Get Service", () => {
+    describe("when a valid object is posted", () => {
+        it("should response with 200 when pets are fetched", async () => {
+            const response = await request(app).get("/api/pet");
+
+            expect(response.statusCode).toBe(200);
+        });
+
+        it("should be content type of json in the header when a new pets are fetched", async () => {
+            const response = await request(app).get("/api/pet");
+            expect(response.headers["content-type"]).toEqual(expect.stringContaining("application/json"));
         });
     });
 });

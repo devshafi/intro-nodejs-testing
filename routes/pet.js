@@ -13,4 +13,8 @@ router.post("/", async (req, res, next) => {
     res.status(201).json("Added successfully");
 });
 
+router.get("/", async (req, res, next) => {
+    res.status(200).json(pets);
+});
+
 module.exports = router;
