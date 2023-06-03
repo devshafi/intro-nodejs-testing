@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const pets = require("../data");
+const Pet = require("../models/pet");
 
 router.post("/", async (req, res, next) => {
     const body = req.body;
@@ -8,8 +9,7 @@ router.post("/", async (req, res, next) => {
         res.status(400).json("Bad Request");
         return;
     }
-
-    pets.push(body);
+    await Pet.create(body)
     res.status(201).json("Added successfully");
 });
 
