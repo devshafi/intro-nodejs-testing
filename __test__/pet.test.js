@@ -19,6 +19,12 @@ afterEach(async () => {
 });
 
 describe("Pet Post Service", () => {
+    let token;
+    beforeAll(() => {
+        // Get the authorization token
+        token = "valid-token"; // Replace with your valid authorization token
+    });
+
     beforeEach(async () => {
         // Insert mock pets into the database before each test
         await Pet.create([
@@ -29,10 +35,13 @@ describe("Pet Post Service", () => {
 
     describe("when a valid object is posted", () => {
         it("should response with 201 when new pet created with all the fields", async () => {
-            const response = await request(app).post("/api/pet").send({
-                name: "Sandy",
-                type: "Hamster"
-            });
+            const response = await request(app)
+                .post("/api/pet")
+                .set("Authorization", `Bearer ${token}`)
+                .send({
+                    name: "Sandy",
+                    type: "Hamster"
+                });
 
             expect(response.statusCode).toBe(201);
         });
@@ -60,15 +69,43 @@ describe("Pet Post Service", () => {
             ];
 
             for (const data of bodyData) {
-                const response = await request(app).post("/api/pet").send(data);
+                const response = await request(app)
+                    .post("/api/pet")
+                    .set("Authorization", `Bearer ${token}`)
+                    .send(data);
                 expect(response.statusCode).toBe(400);
             }
+        });
+    });
+
+    describe("authorization test", () => {
+        it("should response with 401 when Authorization header is not passed", async () => {
+            const response = await request(app).post("/api/pet").send({
+                name: "Sandy",
+                type: "Hamster"
+            });
+
+            expect(response.statusCode).toBe(401);
+        });
+    });
+
+    describe("authorization test", () => {
+        it("should response with 401 when invalid token is passed is not passed", async () => {
+            const response = await request(app)
+                .post("/api/pet")
+                .set("Authorization", `Bearer invalid token`)
+                .send({
+                    name: "Sandy",
+                    type: "Hamster"
+                });
+
+            expect(response.statusCode).toBe(401);
         });
     });
 });
 
 describe("Pet Get Service", () => {
-    describe("when a valid object is posted", () => {
+    describe("when a valid object is fetched", () => {
         it("should response with 200 when pets are fetched", async () => {
             const response = await request(app).get("/api/pet");
 
