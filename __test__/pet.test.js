@@ -19,6 +19,14 @@ afterEach(async () => {
 });
 
 describe("Pet Post Service", () => {
+    beforeEach(async () => {
+        // Insert mock pets into the database before each test
+        await Pet.create([
+            { name: "Sheldon", type: "Turtle" },
+            { name: "Polly", type: "Bird" }
+        ]);
+    });
+
     describe("when a valid object is posted", () => {
         it("should response with 201 when new pet created with all the fields", async () => {
             const response = await request(app).post("/api/pet").send({
