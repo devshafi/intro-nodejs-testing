@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const app = require("../app");
 const request = require("supertest");
-const { connectDB, dropDB, dropCollections } = require("../setupTestDb");
+const { connectDB, dropDB, dropCollections } = require("../config/setupTestDB");
 const Pet = require("../models/pet");
 
 // connect to the database before run the test file
@@ -30,7 +30,6 @@ describe("Pet Post Service", () => {
     describe("when a valid object is posted", () => {
         it("should response with 201 when new pet created with all the fields", async () => {
             const response = await request(app).post("/api/pet").send({
-                id: 5,
                 name: "Sandy",
                 type: "Hamster"
             });
@@ -40,7 +39,6 @@ describe("Pet Post Service", () => {
 
         it("should be content type of json in the header when a new pet is added", async () => {
             const response = await request(app).post("/api/pet").send({
-                id: 5,
                 name: "Sandy",
                 type: "Hamster"
             });
@@ -53,16 +51,12 @@ describe("Pet Post Service", () => {
         it("should response with 400 when name or type is missing for the pet", async () => {
             const bodyData = [
                 {
-                    id: 5,
                     name: "Sandy"
                 },
                 {
-                    id: 5,
                     type: "Hamster"
                 },
-                {
-                    id: 5
-                }
+                {}
             ];
 
             for (const data of bodyData) {
