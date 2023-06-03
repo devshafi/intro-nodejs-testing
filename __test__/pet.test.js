@@ -4,14 +4,16 @@ const request = require("supertest");
 const { connectDB, dropDB, dropCollections } = require("../setupTestDb");
 const Pet = require("../models/pet");
 
+// connect to the database before run the test file
 beforeAll(async () => {
     await connectDB();
 });
 
+// drop the database after the test file is finished
 afterAll(async () => {
     await dropDB();
 });
-
+// drop all of the collections in the database after each test
 afterEach(async () => {
     await dropCollections();
 });
