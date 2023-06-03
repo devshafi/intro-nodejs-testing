@@ -1,5 +1,20 @@
+const mongoose = require("mongoose");
 const app = require("../app");
 const request = require("supertest");
+const { connectDB, dropDB, dropCollections } = require("../setupTestDb");
+const Pet = require("../models/pet");
+
+beforeAll(async () => {
+    await connectDB();
+});
+
+afterAll(async () => {
+    await dropDB();
+});
+
+afterEach(async () => {
+    await dropCollections();
+});
 
 describe("Pet Post Service", () => {
     describe("when a valid object is posted", () => {
